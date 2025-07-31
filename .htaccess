@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+
+    # Si acceden al root sin public/
+    RewriteCond %{REQUEST_URI} ^/sepreladadmin/?$
+    RewriteRule ^.*$ /sepreladadmin/public/login [L,R=302]
+</IfModule>
