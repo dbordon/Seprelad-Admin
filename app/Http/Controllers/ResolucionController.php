@@ -64,7 +64,7 @@ public function store(Request $request)
     if ($request->hasFile('documento_res')) {
         $archivo = $request->file('documento_res');
         $nombreArchivo = $archivo->getClientOriginalName(); // ✅ sin timestamp
-        $rutaDestino = 'C:/wamp64/www/seprelad/resoluciones/resoluciones';
+        $rutaDestino = '/var/www/html/resoluciones/resoluciones';
         $archivo->move($rutaDestino, $nombreArchivo);
     }
 
@@ -77,7 +77,7 @@ public function store(Request $request)
         'estado_res' => $request->estado_res,
         'padre_id' => $request->padre_id,
         'documento_res' => $nombreArchivo,
-        'mostrar_res' => 1,
+        'mostrar_res' => $request->mostrar_res,
         'fecha_mod_res' => now(),
     ]);
 
@@ -111,7 +111,7 @@ public function store(Request $request)
 
     $resolucion = Resolucion::findOrFail($id);
 
-    $directorio = 'C:/wamp64/www/seprelad/resoluciones/resoluciones';
+    $directorio = '/var/www/html/resoluciones/resoluciones'; 
     $nombreArchivo = $resolucion->documento_res; // por defecto conserva el anterior
 
     if ($request->hasFile('documento_res')) {
@@ -137,6 +137,7 @@ public function store(Request $request)
         'estado_res' => $request->estado_res,
         'padre_id' => $request->padre_id,
         'documento_res' => $nombreArchivo,
+        'mostrar_res' => $request->mostrar_res,
         'fecha_mod_res' => now(),
     ]);
 

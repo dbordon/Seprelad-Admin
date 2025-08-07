@@ -62,7 +62,7 @@ class TransparenciaDocumentoController extends Controller
 
         $archivo = $request->file('archivo');
         $nombreArchivo = $archivo->getClientOriginalName();
-        $rutaDestino = base_path('/seprelad/transparencia/transparencia');
+        $rutaDestino = '/var/www/html/transparencia/transparencia';
         $archivo->move($rutaDestino, $nombreArchivo);
 
         TransparenciaDocumento::create([
@@ -101,7 +101,7 @@ class TransparenciaDocumentoController extends Controller
         if ($request->hasFile('archivo')) {
             $archivo = $request->file('archivo');
             $nombreArchivo = $archivo->getClientOriginalName();
-            $rutaDestino = base_path('../seprelad/transparencia/transparencia');
+            $rutaDestino = '/var/www/html/transparencia/transparencia';
             $archivo->move($rutaDestino, $nombreArchivo);
         }
 

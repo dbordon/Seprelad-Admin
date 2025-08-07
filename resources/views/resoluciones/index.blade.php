@@ -102,7 +102,7 @@
                     <td>{{ $res->estado_res }}</td>
                     <td>
                         @if($res->documento_res)
-                            <a href="{{ asset('seprelad/resoluciones/resoluciones/' . $res->documento_res) }}"
+                            <a href="{{ asset('https://www.seprelad.gov.py/resoluciones/resoluciones/' . $res->documento_res) }}"
                             target="_blank"
                             class="btn btn-sm btn-outline-primary"
                             title="Ver PDF">
@@ -141,3 +141,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    setTimeout(() => {
+        ['alert-success', 'alert-error', 'alert-warning'].forEach(id => {
+            const alert = document.getElementById(id);
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = 0;
+                setTimeout(() => alert.remove(), 500);
+            }
+        });
+    }, 5000); // Desaparecen después de 5 segundos
+</script>
+@endpush
