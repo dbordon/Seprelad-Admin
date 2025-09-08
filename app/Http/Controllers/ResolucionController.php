@@ -154,11 +154,14 @@ public function store(Request $request)
 public function destroy($id)
 {
     $resolucion = Resolucion::findOrFail($id);
-    $resolucion->mostrar_res = 0;
-    $resolucion->save();
+    $resolucion->update([
+        'mostrar_res' => 0,
+        'fecha_mod_res' => now(),
+    ]);
 
-    return redirect()->route('resoluciones.index')
-                     ->with('success', 'Resolución eliminada correctamente (borrado lógico).');
+    return redirect()
+        ->route('resoluciones.index')
+        ->with('success', 'Resolución eliminada correctamente (borrado lógico).');
 }
 
 public function eliminadas()
@@ -174,11 +177,14 @@ public function eliminadas()
 public function restaurar($id)
 {
     $resolucion = Resolucion::findOrFail($id);
-    $resolucion->mostrar_res = 1;
-    $resolucion->save();
+    $resolucion->update([
+        'mostrar_res' => 1,
+        'fecha_mod_res' => now(),
+    ]);
 
-    return redirect()->route('resoluciones.eliminadas')
-                     ->with('success', 'Resolución restaurada correctamente.');
+    return redirect()
+        ->route('resoluciones.eliminadas')
+        ->with('success', 'Resolución restaurada correctamente.');
 }
 
 
