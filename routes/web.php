@@ -40,8 +40,9 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     // Resoluciones
-    Route::resource('resoluciones', ResolucionController::class);
     Route::get('/resoluciones/eliminadas', [ResolucionController::class, 'eliminadas'])->name('resoluciones.eliminadas');
+    Route::resource('resoluciones', ResolucionController::class);
+    
     Route::post('/resoluciones/{id}/restaurar', [ResolucionController::class, 'restaurar'])->name('resoluciones.restaurar');
     Route::get('/resoluciones/export/pdf', [ExportPdfController::class, 'exportResolucionesPdf'])->name('resoluciones.export.pdf');
     Route::get('/resoluciones/export/excel', [ExportExcelController::class, 'exportResolucionesExcel'])->name('resoluciones.export.excel');
