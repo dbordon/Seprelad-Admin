@@ -14,6 +14,8 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+
+
 // Rutas públicas para recuperación de contraseña
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
     ->middleware('guest')
