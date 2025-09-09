@@ -1,0 +1,111 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `tr_resoluciones_ad` AFTER DELETE ON `seprelad_resoluciones` FOR EACH ROW INSERT INTO `audit_log`
+  (`table_name`,`action`,`row_pk`,`changed_cols`,`old_data`,`new_data`,
+   `app_user_id`,`app_user_name`,`db_user`,`ip_address`)
+VALUES
+  ('seprelad_resoluciones','DELETE', OLD.`id_res`, 'ALL',
+   JSON_OBJECT(
+     'id_res', OLD.`id_res`, 'id_tipo', OLD.`id_tipo`, 'nro_res', OLD.`nro_res`,
+     'titulo_res', OLD.`titulo_res`, 'fecha_res', OLD.`fecha_res`,
+     'id_sector', OLD.`id_sector`, 'fecha_mod_res', OLD.`fecha_mod_res`,
+     'documento_res', OLD.`documento_res`, 'mostrar_res', OLD.`mostrar_res`,
+     'estado_res', OLD.`estado_res`, 'padre_id', OLD.`padre_id`
+   ),
+   NULL, @app_user_id, @app_user_name, CURRENT_USER(), @app_ip)
+
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `tr_resoluciones_ai` AFTER INSERT ON `seprelad_resoluciones` FOR EACH ROW INSERT INTO `audit_log`
+  (`table_name`,`action`,`row_pk`,`changed_cols`,`old_data`,`new_data`,
+   `app_user_id`,`app_user_name`,`db_user`,`ip_address`)
+VALUES
+  ('seprelad_resoluciones','INSERT', NEW.`id_res`, 'ALL', NULL,
+   JSON_OBJECT(
+     'id_res', NEW.`id_res`, 'id_tipo', NEW.`id_tipo`, 'nro_res', NEW.`nro_res`,
+     'titulo_res', NEW.`titulo_res`, 'fecha_res', NEW.`fecha_res`,
+     'id_sector', NEW.`id_sector`, 'fecha_mod_res', NEW.`fecha_mod_res`,
+     'documento_res', NEW.`documento_res`, 'mostrar_res', NEW.`mostrar_res`,
+     'estado_res', NEW.`estado_res`, 'padre_id', NEW.`padre_id`
+   ),
+   @app_user_id, @app_user_name, CURRENT_USER(), @app_ip
+  )
+
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `tr_resoluciones_au` AFTER UPDATE ON `seprelad_resoluciones` FOR EACH ROW INSERT INTO `audit_log`
+  (`table_name`,`action`,`row_pk`,`changed_cols`,`old_data`,`new_data`,
+   `app_user_id`,`app_user_name`,`db_user`,`ip_address`)
+VALUES
+  ('seprelad_resoluciones','UPDATE', OLD.`id_res`,
+   CONCAT_WS(',',
+     IF(NOT (OLD.`id_tipo`       <=> NEW.`id_tipo`),       'id_tipo', NULL),
+     IF(NOT (OLD.`nro_res`       <=> NEW.`nro_res`),       'nro_res', NULL),
+     IF(NOT (OLD.`titulo_res`    <=> NEW.`titulo_res`),    'titulo_res', NULL),
+     IF(NOT (OLD.`fecha_res`     <=> NEW.`fecha_res`),     'fecha_res', NULL),
+     IF(NOT (OLD.`id_sector`     <=> NEW.`id_sector`),     'id_sector', NULL),
+     IF(NOT (OLD.`fecha_mod_res` <=> NEW.`fecha_mod_res`), 'fecha_mod_res', NULL),
+     IF(NOT (OLD.`documento_res` <=> NEW.`documento_res`), 'documento_res', NULL),
+     IF(NOT (OLD.`mostrar_res`   <=> NEW.`mostrar_res`),   'mostrar_res', NULL),
+     IF(NOT (OLD.`estado_res`    <=> NEW.`estado_res`),    'estado_res', NULL),
+     IF(NOT (OLD.`padre_id`      <=> NEW.`padre_id`),      'padre_id', NULL)
+   ),
+   JSON_OBJECT(
+     'id_res', OLD.`id_res`, 'id_tipo', OLD.`id_tipo`, 'nro_res', OLD.`nro_res`,
+     'titulo_res', OLD.`titulo_res`, 'fecha_res', OLD.`fecha_res`,
+     'id_sector', OLD.`id_sector`, 'fecha_mod_res', OLD.`fecha_mod_res`,
+     'documento_res', OLD.`documento_res`, 'mostrar_res', OLD.`mostrar_res`,
+     'estado_res', OLD.`estado_res`, 'padre_id', OLD.`padre_id`
+   ),
+   JSON_OBJECT(
+     'id_res', NEW.`id_res`, 'id_tipo', NEW.`id_tipo`, 'nro_res', NEW.`nro_res`,
+     'titulo_res', NEW.`titulo_res`, 'fecha_res', NEW.`fecha_res`,
+     'id_sector', NEW.`id_sector`, 'fecha_mod_res', NEW.`fecha_mod_res`,
+     'documento_res', NEW.`documento_res`, 'mostrar_res', NEW.`mostrar_res`,
+     'estado_res', NEW.`estado_res`, 'padre_id', NEW.`padre_id`), @app_user_id, @app_user_name, CURRENT_USER(), @app_ip
+  )
+
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `tr_trans_docs_ad` AFTER DELETE ON `seprelad_transparencia_documentos` FOR EACH ROW INSERT INTO `audit_log`
+  (`table_name`,`action`,`row_pk`,`changed_cols`,`old_data`,`new_data`,
+   `app_user_id`,`app_user_name`,`db_user`,`ip_address`)
+VALUES
+  ('seprelad_transparencia_documentos','DELETE', OLD.`trans_doc_id`, 'ALL',
+   JSON_OBJECT(
+     'trans_doc_id', OLD.`trans_doc_id`, 'trans_cat_id', OLD.`trans_cat_id`,
+     'titulo', OLD.`titulo`, 'archivo', OLD.`archivo`,
+     'mes', OLD.`mes`, 'ano', OLD.`ano`, 'tans_doc_estado', OLD.`tans_doc_estado`
+   ),
+   NULL,   @app_user_id, @app_user_name, CURRENT_USER(), @app_ip  )
+
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `tr_trans_docs_ai` AFTER INSERT ON `seprelad_transparencia_documentos` FOR EACH ROW INSERT INTO `audit_log`
+  (`table_name`,`action`,`row_pk`,`changed_cols`,`old_data`,`new_data`,
+   `app_user_id`,`app_user_name`,`db_user`,`ip_address`)
+VALUES
+  ('seprelad_transparencia_documentos','INSERT', NEW.`trans_doc_id`, 'ALL', NULL,
+   JSON_OBJECT(
+     'trans_doc_id', NEW.`trans_doc_id`, 'trans_cat_id', NEW.`trans_cat_id`,
+     'titulo', NEW.`titulo`, 'archivo', NEW.`archivo`,
+     'mes', NEW.`mes`, 'ano', NEW.`ano`, 'tans_doc_estado', NEW.`tans_doc_estado`
+   ),   @app_user_id, @app_user_name, CURRENT_USER(), @app_ip )
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `tr_trans_docs_au` AFTER UPDATE ON `seprelad_transparencia_documentos` FOR EACH ROW INSERT INTO `audit_log`
+  (`table_name`,`action`,`row_pk`,`changed_cols`,`old_data`,`new_data`,
+   `app_user_id`,`app_user_name`,`db_user`,`ip_address`)
+VALUES
+  ('seprelad_transparencia_documentos','UPDATE', OLD.`trans_doc_id`,
+   CONCAT_WS(',',
+     IF(NOT (OLD.`trans_cat_id`   <=> NEW.`trans_cat_id`),   'trans_cat_id', NULL),
+     IF(NOT (OLD.`titulo`         <=> NEW.`titulo`),         'titulo', NULL),
+     IF(NOT (OLD.`archivo`        <=> NEW.`archivo`),        'archivo', NULL),
+     IF(NOT (OLD.`mes`            <=> NEW.`mes`),            'mes', NULL),
+     IF(NOT (OLD.`ano`            <=> NEW.`ano`),            'ano', NULL),
+     IF(NOT (OLD.`tans_doc_estado`<=> NEW.`tans_doc_estado`),'tans_doc_estado', NULL)
+   ),
+   JSON_OBJECT(
+     'trans_doc_id', OLD.`trans_doc_id`, 'trans_cat_id', OLD.`trans_cat_id`,
+     'titulo', OLD.`titulo`, 'archivo', OLD.`archivo`,
+     'mes', OLD.`mes`, 'ano', OLD.`ano`, 'tans_doc_estado', OLD.`tans_doc_estado`
+   ),
+   JSON_OBJECT(
+     'trans_doc_id', NEW.`trans_doc_id`, 'trans_cat_id', NEW.`trans_cat_id`,
+     'titulo', NEW.`titulo`, 'archivo', NEW.`archivo`,
+     'mes', NEW.`mes`, 'ano', NEW.`ano`, 'tans_doc_estado', NEW.`tans_doc_estado`
+   ),   @app_user_id, @app_user_name, CURRENT_USER(), @app_ip  )
