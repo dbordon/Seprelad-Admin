@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>SEPRELAD</title>
+
 
     {{-- AdminLTE CSS --}}
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
     {{-- Fuente opcional --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
@@ -47,6 +49,8 @@
         {{-- <footer class="main-footer text-center">Sistema SEPRELAD - © {{ date('Y') }}</footer> --}}
 
     </div>
+
+    @stack('scripts')
 
     {{-- Scripts de AdminLTE --}}
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>

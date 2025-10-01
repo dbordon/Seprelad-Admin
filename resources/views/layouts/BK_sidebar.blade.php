@@ -19,7 +19,6 @@
             </div>
         </div>
         @endauth
-        
 
         <!-- Menú de navegación -->
         <nav class="mt-2">
@@ -46,14 +45,6 @@
                         <i class="nav-icon fas fa-folder-open"></i>
                         <p>Transparencia</p>
                     </a>
-                </li>
-                    <!-- sOLICITUDES -->
-                <li class="nav-item">
-                <a href="{{ route('solicitudes.index') }}"
-                    class="nav-link {{ request()->routeIs('solicitudes.*') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-file-signature"></i>
-                    <p>Solicitudes</p>
-                </a>
                 </li>
             </ul>
         </nav>

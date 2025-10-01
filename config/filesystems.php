@@ -53,6 +53,15 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        //cv
+        'cvpost' => [
+            'driver' => 'local',
+            'root'   => env('POSTULANTES_CV_PATH', '/var/www/html/postulacion/public/uploads'),
+            'url'    => env('APP_URL').'/uploads', // opcional, si querés exponerlos como /uploads
+            'visibility' => 'public',
+            'throw'  => false,
+        ],
+
     ],
 
     /*

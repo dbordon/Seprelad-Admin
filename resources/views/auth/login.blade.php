@@ -59,11 +59,11 @@
                 </p>
             @endif
 
-            <!-- @if (Route::has('register'))
+             @if (Route::has('register'))
                 <p class="mb-0">
                     <a href="{{ route('register') }}" class="text-center">Registrarse</a>
                 </p>
-            @endif -->
+            @endif 
         </div>
     </div>
 </div>

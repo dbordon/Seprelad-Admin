@@ -63,7 +63,7 @@
                     <td>{{ $doc->ano }}</td>
                     <td>
                         @if ($doc->archivo)
-                            <a href="{{ asset('transparencia/transparencia/' . $doc->archivo) }}" target="_blank">
+                            <a href="{{ asset('https://www.seprelad.gov.py/transparencia/transparencia/' . $doc->archivo) }}" target="_blank">
                                 <i class="fas fa-file-pdf"></i> Ver PDF
                             </a>
                         @else
@@ -92,3 +92,18 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    setTimeout(() => {
+        ['alert-success', 'alert-error', 'alert-warning'].forEach(id => {
+            const alert = document.getElementById(id);
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = 0;
+                setTimeout(() => alert.remove(), 500);
+            }
+        });
+    }, 5000); // Desaparecen después de 5 segundos
+</script>
+@endpush
